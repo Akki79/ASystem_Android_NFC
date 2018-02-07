@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">ASystem_Android_NFC</string>
+    <string name="app_name">学员管理</string>
+    <string name="login">登录</string>
+    <string name="logout">取消</string>
 </resources>
