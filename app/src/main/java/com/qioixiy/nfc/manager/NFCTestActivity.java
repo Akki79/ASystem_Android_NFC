@@ -1,19 +1,13 @@
-package com.qioixiy.nfc.asystem_android_nfc;
+package com.qioixiy.nfc.manager;
 
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
-import android.nfc.tech.IsoDep;
-import android.nfc.tech.NfcA;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-
-import java.io.IOException;
 
 /**
  * @refs1 https://www.jianshu.com/p/3833cbfd8b27

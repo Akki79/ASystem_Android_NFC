@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.qioixiy.nfc.asystem_android_nfc">
+    package="com.qioixiy.nfc.manager">
 
     <uses-sdk android:minSdkVersion="19" />
 
@@ -19,11 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.qioixiy.nfc.manager.LoginActivity">
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name="com.qioixiy.nfc.manager.MainActivity"></activity>
         <activity
-            android:name="com.qioixiy.nfc.asystem_android_nfc.NFCTestActivity"
+            android:name="com.qioixiy.nfc.manager.NFCTestActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />

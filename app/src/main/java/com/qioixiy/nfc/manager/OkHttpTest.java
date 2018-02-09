@@ -1,4 +1,4 @@
-package com.qioixiy.nfc.asystem_android_nfc;
+package com.qioixiy.nfc.manager;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.qioixiy.nfc.asystem_android_nfc.app.App;
+import com.qioixiy.nfc.manager.app.App;
 
 import java.io.IOException;
 import java.util.List;

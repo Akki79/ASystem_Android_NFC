@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.qioixiy.mvpdemo.presenter.MvpPresenter;
-import com.qioixiy.nfc.asystem_android_nfc.R;
+import com.qioixiy.nfc.manager.R;
 
 
 /*

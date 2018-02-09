@@ -1,16 +1,9 @@
-package com.qioixiy.nfc.asystem_android_nfc;
+package com.qioixiy.nfc.manager;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class CustomDialogTest extends AppCompatActivity {

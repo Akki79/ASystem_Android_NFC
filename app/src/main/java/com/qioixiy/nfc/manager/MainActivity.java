@@ -1,4 +1,4 @@
-package com.qioixiy.nfc.asystem_android_nfc;
+package com.qioixiy.nfc.manager;
 
 import android.annotation.TargetApi;
 import android.content.Context;
