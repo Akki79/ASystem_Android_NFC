@@ -8,7 +8,7 @@ public class MvpModel {
      * @param param 请求参数
      * @param callback 数据回调接口
      */
-    public static void getNetData(final String param, final MvpCallback callback){
+    public static void getNetData(final String param, final MvpCallback<String> callback){
         // 利用postDelayed方法模拟网络请求数据的耗时操作
         new Handler().postDelayed(new Runnable() {
             @Override
