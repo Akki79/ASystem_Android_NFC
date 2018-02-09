@@ -1,12 +1,10 @@
-package com.qioixiy.mvpdemo;
+package com.qioixiy.mvpdemo.view;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.qioixiy.mvpdemo.presenter.MvpPresenter;
 import com.qioixiy.nfc.asystem_android_nfc.R;
 
 

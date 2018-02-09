@@ -1,4 +1,6 @@
-package com.qioixiy.mvpdemo;
+package com.qioixiy.mvpdemo.presenter;
+
+import com.qioixiy.mvpdemo.view.BaseView;
 
 public class BasePresenter<V extends BaseView> {
     /**

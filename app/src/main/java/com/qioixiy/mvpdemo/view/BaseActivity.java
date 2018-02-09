@@ -1,4 +1,4 @@
-package com.qioixiy.mvpdemo;
+package com.qioixiy.mvpdemo.view;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

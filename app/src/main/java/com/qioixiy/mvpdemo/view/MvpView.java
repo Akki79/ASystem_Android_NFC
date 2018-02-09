@@ -1,4 +1,4 @@
-package com.qioixiy.mvpdemo;
+package com.qioixiy.mvpdemo.view;
 
 public interface MvpView extends BaseView{
     /**

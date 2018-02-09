@@ -1,4 +1,4 @@
-package com.qioixiy.mvpdemo;
+package com.qioixiy.mvpdemo.presenter;
 
 public interface MvpCallback<T> {
 
