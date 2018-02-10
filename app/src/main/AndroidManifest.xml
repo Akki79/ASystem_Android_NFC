@@ -19,11 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="com.qioixiy.nfc.manager.LoginActivity">
+        <activity android:name="com.qioixiy.nfc.manager.com.qioixiy.test.LoginActivity">
         </activity>
-        <activity android:name="com.qioixiy.nfc.manager.MainActivity"></activity>
+        <activity android:name="com.qioixiy.nfc.manager.com.qioixiy.test.MainActivity"></activity>
         <activity
-            android:name="com.qioixiy.nfc.manager.NFCTestActivity"
+            android:name="com.qioixiy.nfc.manager.com.qioixiy.test.NFCTestActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -41,7 +41,7 @@
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
-        <activity android:name="com.qioixiy.mvpdemo.view.MainActivity">
+        <activity android:name="com.qioixiy.test.mvpdemo.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

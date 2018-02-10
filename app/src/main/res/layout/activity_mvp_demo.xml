@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context="com.qioixiy.mvpdemo.view.MainActivity">
+    tools:context="com.qioixiy.test.mvpdemo.view.MainActivity">
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
