@@ -1,7 +1,5 @@
 package com.qioixiy.app.nfcStudentManagement.view;
 
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,11 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.Spinner;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.qioixiy.R;
@@ -68,67 +64,22 @@ public class StudentManagementFragment extends Fragment {
 
     private void initSettings(View view) {
         final MainActivity mMainActivity = (MainActivity) getActivity();
-        final SwitchCompat switchColored = view.findViewById(R.id.fragment_demo_switch_colored);
-        final SwitchCompat showHideBottomNavigation = view.findViewById(R.id.fragment_demo_show_hide);
-        final SwitchCompat showSelectedBackground = view.findViewById(R.id.fragment_demo_selected_background);
-        final Spinner spinnerTitleState = view.findViewById(R.id.fragment_demo_title_state);
-        final SwitchCompat switchTranslucentNavigation = view.findViewById(R.id.fragment_demo_translucent_navigation);
+        final SwitchCompat switchNfc = view.findViewById(R.id.fragment_nfcstudentmangement_switch_nfc);
 
-        switchColored.setChecked(mMainActivity.isBottomNavigationColored());
-        switchTranslucentNavigation.setChecked(getActivity()
-                .getSharedPreferences("shared", Context.MODE_PRIVATE)
-                .getBoolean("translucentNavigation", false));
-        switchTranslucentNavigation.setVisibility(
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? View.VISIBLE : View.GONE);
+        switchNfc.setChecked(mMainActivity.isNfcStatusOpened());
+        switchNfc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mMainActivity.updateNfcStatus(isChecked);
+            }
+        });
 
-        switchTranslucentNavigation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                getActivity()
-                        .getSharedPreferences("shared", Context.MODE_PRIVATE)
-                        .edit()
-                        .putBoolean("translucentNavigation", isChecked)
-                        .apply();
-                mMainActivity.reload();
-            }
-        });
-        switchColored.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mMainActivity.updateBottomNavigationColor(isChecked);
-            }
-        });
-        showHideBottomNavigation.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mMainActivity.showOrHideBottomNavigation(isChecked);
-            }
-        });
-        showSelectedBackground.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mMainActivity.updateSelectedBackgroundVisibility(isChecked);
-            }
-        });
         final List<String> titleStates = new ArrayList<>();
         for (AHBottomNavigation.TitleState titleState : AHBottomNavigation.TitleState.values()) {
             titleStates.add(titleState.toString());
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, titleStates);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTitleState.setAdapter(spinnerAdapter);
-        spinnerTitleState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AHBottomNavigation.TitleState titleState = AHBottomNavigation.TitleState.valueOf(titleStates.get(position));
-                mMainActivity.setTitleState(titleState);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing
-            }
-        });
     }
 
     private void initManager(View view) {

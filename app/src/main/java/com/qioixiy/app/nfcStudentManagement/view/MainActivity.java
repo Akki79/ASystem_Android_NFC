@@ -101,14 +101,14 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Update the bottom navigation colored param
      */
-    public void updateBottomNavigationColor(boolean isColored) {
+    public void updateNfcStatus(boolean isColored) {
         bottomNavigation.setColored(isColored);
     }
 
     /**
      * Return if the bottom navigation is colored
      */
-    public boolean isBottomNavigationColored() {
+    public boolean isNfcStatusOpened() {
         return bottomNavigation.isColored();
     }
 
