@@ -1,7 +1,9 @@
 package com.qioixiy.app.nfcStudentManagement.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.qioixiy.R;
 
@@ -19,7 +21,9 @@ public class LoginActivity extends AppCompatActivity implements SmartLoginCallba
 
     @Override
     public void onLoginSuccess(SmartUser user) {
-
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -37,5 +41,9 @@ public class LoginActivity extends AppCompatActivity implements SmartLoginCallba
     @Override
     public SmartUser doCustomSignup() {
         return null;
+    }
+
+    public void onLogin(View view) {
+        onLoginSuccess(null);
     }
 }

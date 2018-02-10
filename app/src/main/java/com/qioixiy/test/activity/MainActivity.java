@@ -17,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.qioixiy.nfc.manager.R;
+import com.qioixiy.R;
 import com.qioixiy.test.misc.MyAdapter;
 import com.qioixiy.test.misc.MyModel;
 import com.readystatesoftware.systembartint.SystemBarTintManager;

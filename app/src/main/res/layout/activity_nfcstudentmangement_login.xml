@@ -63,6 +63,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/white"
                     android:tag="custom_login_button"
+                    android:onClick="onLogin"
                     android:text="@string/login" />
 
                 <Button

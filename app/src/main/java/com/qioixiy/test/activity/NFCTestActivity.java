@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 
-import com.qioixiy.nfc.manager.R;
+import com.qioixiy.R;
 
 /**
  * @refs1 https://www.jianshu.com/p/3833cbfd8b27

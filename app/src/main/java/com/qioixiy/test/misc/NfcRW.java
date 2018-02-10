@@ -25,7 +25,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.qioixiy.nfc.manager.R;
+import com.qioixiy.R;
 import com.qioixiy.test.dialog.CustomDialog;
 import com.qioixiy.utils.ByteArrayChange;
 import com.qioixiy.utils.ToStringHex;

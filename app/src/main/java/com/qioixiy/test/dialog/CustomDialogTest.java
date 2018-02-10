@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.qioixiy.nfc.manager.R;
+import com.qioixiy.R;
 
 public class CustomDialogTest extends AppCompatActivity {
 

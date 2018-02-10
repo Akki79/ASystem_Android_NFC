@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.qioixiy.nfc.manager.R;
+import com.qioixiy.R;
 
 class MikyouCommonDialog {
     /**

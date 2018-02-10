@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.qioixiy.nfc.manager.R;
+import com.qioixiy.R;
 
 // http://blog.csdn.net/u013064109/article/details/51990526
 

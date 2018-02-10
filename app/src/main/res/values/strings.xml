@@ -5,4 +5,8 @@
     <string name="title_alert">alert</string>
     <string name="ok">ok</string>
     <string name="cancel">canel</string>
+
+    <string name="nfcstudentmangement_tab1">管理</string>
+    <string name="nfcstudentmangement_tab2">查看</string>
+    <string name="nfcstudentmangement_tab3">设置</string>
 </resources>

@@ -33,4 +33,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okio:okio:1.7.0'
     compile 'com.orhanobut:logger:1.15'
+    compile 'com.aurelhubert:ahbottomnavigation:2.1.0'
 }
