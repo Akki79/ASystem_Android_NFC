@@ -1,5 +1,6 @@
 package com.qioixiy.app.nfcStudentManagement.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.qioixiy.R;
@@ -94,9 +96,29 @@ public class StudentManagementFragment extends Fragment {
         itemsData.add("管理学员");
         itemsData.add("添加学员");
         itemsData.add("管理NFC标签");
-        itemsData.add("添加NFC标签");;
+        itemsData.add("添加NFC标签");
 
         StudentManagementAdapter adapter = new StudentManagementAdapter(itemsData);
+
+        adapter.setOnItemClickListener(new StudentManagementAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                switch (position) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        Intent intent = new Intent(getContext(), AddNFCActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
@@ -113,6 +135,21 @@ public class StudentManagementFragment extends Fragment {
         itemsData.add("分析统计学员动态信息");
 
         StudentManagementAdapter adapter = new StudentManagementAdapter(itemsData);
+        adapter.setOnItemClickListener(new StudentManagementAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String text = Integer.toString(position);
+                Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
