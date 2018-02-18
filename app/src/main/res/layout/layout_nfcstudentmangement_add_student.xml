@@ -12,31 +12,54 @@
         android:stretchColumns="1">
 
         <TableRow>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="标签UID"
+                android:text="用户名"
                 android:textSize="16sp" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="e.g.0C123..."
+                android:id="@+id/nfcstudentmangement_add_student_textview_user"
+                android:hint="e.g.张三"
                 android:selectAllOnFocus="true" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="名称定义："
+                android:text="学号"
                 android:textSize="16sp" />
-
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:id="@+id/nfcstudentmangement_add_student_textview_number"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邮箱"
+                android:textSize="16sp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nfcstudentmangement_add_student_textview_email" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电话"
+                android:textSize="16sp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nfcstudentmangement_add_student_textview_telphone" />
         </TableRow>
 
         <LinearLayout
@@ -46,18 +69,18 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/nfcstudentmangement_add_nfc_register_button"
+                android:id="@+id/nfcstudentmangement_add_student_register_button"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:onClick="onClickedOk"
                 android:elevation="0dp"
                 android:tag="custom_login_button"
-                android:text="录入NFC"
+                android:text="添加"
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/nfcstudentmangement_add_nfc_cannel_button"
+                android:id="@+id/nfcstudentmangement_add_student_cannel_button"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"

@@ -105,13 +105,15 @@ public class StudentManagementFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 switch (position) {
                     case 0:
+                        Intent intent = new Intent(getContext(), AddStudentActivity.class);
+                        startActivity(intent);
                         break;
                     case 1:
                         break;
                     case 2:
                         break;
                     case 3:
-                        Intent intent = new Intent(getContext(), AddNFCActivity.class);
+                        intent = new Intent(getContext(), AddNFCActivity.class);
                         startActivity(intent);
                         break;
                     default:

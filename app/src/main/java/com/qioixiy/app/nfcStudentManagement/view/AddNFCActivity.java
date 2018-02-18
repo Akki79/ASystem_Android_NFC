@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.qioixiy.R;
 
@@ -67,5 +68,12 @@ public class AddNFCActivity extends AppCompatActivity {
         mNfcAdapter.disableReaderMode(this);
     }
 
+    private void onClickedOk(View view) {
+
+    }
+
+    private void onClickedCannel(View view) {
+
+    }
 }
 
