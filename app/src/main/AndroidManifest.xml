@@ -94,6 +94,8 @@
 
         <activity android:name=".test.mvpdemo.view.MainActivity"></activity>
         <activity android:name=".app.nfcStudentManagement.view.LoginUtilActivity" />
+        <activity android:name=".test.listview.MainActivity">
+        </activity>
     </application>
 
 </manifest>
