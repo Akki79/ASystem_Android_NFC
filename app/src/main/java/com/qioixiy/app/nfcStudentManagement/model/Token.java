@@ -5,4 +5,5 @@ public class Token {
     private static final String PACKAGE_NAME = "com.qioixiy.app.nfcStudentManagement.model.";
     // 具体Model
     public static final String API_USER_DATA = PACKAGE_NAME + "UserDataModel";
+    public static final String API_STUDENT_DATA = PACKAGE_NAME + "StudentDataModel";
 }
