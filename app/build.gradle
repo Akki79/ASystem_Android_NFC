@@ -34,4 +34,7 @@ dependencies {
     compile 'com.squareup.okio:okio:1.7.0'
     compile 'com.orhanobut:logger:1.15'
     compile 'com.aurelhubert:ahbottomnavigation:2.1.0'
+    compile 'com.android.support:recyclerview-v7:26.0.0'
+    compile 'com.android.support:support-v4:26.+'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
 }
