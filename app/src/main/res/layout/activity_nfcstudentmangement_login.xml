@@ -36,7 +36,7 @@
             android:padding="8dp">
 
             <EditText
-                android:id="@+id/user_edittext"
+                android:id="@+id/account_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"

@@ -39,7 +39,7 @@ public class LoginUtilActivity extends Activity {
             logged.onLogin();
         } else {
             mCallback = callback;
-            Intent intent = new Intent(context, LoginUtilActivity.class);
+            Intent intent = new Intent(context, LoginActivity.class);
             context.startActivity(intent);
         }
     }
