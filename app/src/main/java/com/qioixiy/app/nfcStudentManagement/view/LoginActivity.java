@@ -45,26 +45,31 @@ public class LoginActivity extends AppCompatActivity {
                 String account = editAccount.getText().toString();
                 String pwd = editPwd.getText().toString();
                 if (account.equals("") || pwd.equals("")) {
-                    CustomDialog.Builder dialog = new CustomDialog.Builder(LoginActivity.this);
-                    dialog.setTitle("登录提示")
-                            .setMessage("输入不正确")
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                    Toast.makeText(LoginActivity.this, "确定", Toast.LENGTH_SHORT).show();
-                                }
-                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    }).create().show();
-                    return;
+                    //showLoginFailedDialog();
+                    Toast.makeText(LoginActivity.this, "用户名或者密码为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    new AnsyTry().execute(account, pwd);
                 }
-                new AnsyTry().execute(account, pwd);
             }
         });
+    }
+
+    private void showLoginFailedDialog() {
+        CustomDialog.Builder dialog = new CustomDialog.Builder(LoginActivity.this);
+        dialog.setTitle("登录提示")
+                .setMessage("输入不正确")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        Toast.makeText(LoginActivity.this, "确定", Toast.LENGTH_SHORT).show();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).create().show();
     }
 
     private class AnsyTry extends AsyncTask<String, Integer, String> {
