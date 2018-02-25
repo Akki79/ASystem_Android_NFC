@@ -73,7 +73,6 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:onClick="onClickedOk"
                 android:elevation="0dp"
                 android:tag="custom_login_button"
                 android:text="添加"
@@ -84,7 +83,6 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:onClick="onClickedCannel"
                 android:tag="custom_signup_button"
                 android:text="取消"
                 android:textColor="@color/white" />

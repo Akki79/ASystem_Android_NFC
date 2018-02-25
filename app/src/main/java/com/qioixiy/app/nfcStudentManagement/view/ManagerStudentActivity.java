@@ -38,6 +38,8 @@ public class ManagerStudentActivity extends AppCompatActivity {
     private List<Student> mStudentList = new ArrayList<Student>();
     private ManagerStudentListViewSlideAdapter mListViewAdapter;
 
+    private final OkHttpClient client = new OkHttpClient();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +136,6 @@ public class ManagerStudentActivity extends AppCompatActivity {
         new fetchStudentAsyncTask().execute();
     }
 
-    private final OkHttpClient client = new OkHttpClient();
     private class fetchStudentAsyncTask extends AsyncTask<String, Integer, String> {
 
         @Override
