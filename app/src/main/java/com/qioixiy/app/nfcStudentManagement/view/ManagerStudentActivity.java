@@ -12,13 +12,11 @@ import android.widget.Toast;
 import com.qioixiy.R;
 import com.qioixiy.app.nfcStudentManagement.model.Student;
 import com.qioixiy.test.dialog.CustomDialog;
-import com.qioixiy.test.dialog.CustomDialogTest;
 import com.qioixiy.test.listview.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,25 +59,32 @@ public class ManagerStudentActivity extends AppCompatActivity {
 
             @Override
             public void OnClickListenerDelete(int position) {
+
+                JSONArray array = new JSONArray();
+                array.put(mStudentList.get(position).getId().toString());
+                array.toString();
+                new deleteStudentAsyncTask().execute(array.toString());
                 mStudentList.remove(position);
                 mListViewAdapter.notifyDataSetChanged();
                 Toast.makeText(ManagerStudentActivity.this,
-                        mStudentList.get(position).getName() + "删除", Toast.LENGTH_SHORT).show();
+                        "删除成功", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void showEditDialog(int position) {
+    private void showEditDialog(final int position) {
         View customView = View.inflate(this, R.layout.dialog_student_manage_edit_layout, null);
 
         TextView name = customView.findViewById(R.id.name);
         TextView number = customView.findViewById(R.id.number);
         TextView telphone = customView.findViewById(R.id.telphone);
+        TextView email = customView.findViewById(R.id.email);
 
         final Student student = mStudentList.get(position);
         name.setText(student.getName());
         number.setText(student.getNumber());
         telphone.setText(student.getTelphone());
+        email.setText(student.getEmail());
 
         final CustomDialog.Builder dialog = new CustomDialog.Builder(this);
         dialog.setTitle("学员信息编辑")
@@ -92,12 +97,27 @@ public class ManagerStudentActivity extends AppCompatActivity {
                         TextView name = dialog.getContentView().findViewById(R.id.name);
                         TextView number = dialog.getContentView().findViewById(R.id.number);
                         TextView telphone = dialog.getContentView().findViewById(R.id.telphone);
+                        TextView email = dialog.getContentView().findViewById(R.id.email);
 
                         student.setName(name.getText().toString());
                         student.setNumber(number.getText().toString());
                         student.setTelphone(telphone.getText().toString());
+                        student.setEmail(email.getText().toString());
 
                         mListViewAdapter.notifyDataSetChanged();
+
+                        try {
+                            JSONObject json = new JSONObject();
+                            json.put("id", student.getId());
+                            json.put("name", student.getName());
+                            json.put("number", student.getNumber());
+                            json.put("telphone", student.getTelphone());
+                            json.put("email", student.getEmail());
+
+                            new updateStudentAsyncTask().execute(json.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                         Toast.makeText(ManagerStudentActivity.this, "修改完成", Toast.LENGTH_SHORT).show();
                     }
@@ -111,11 +131,11 @@ public class ManagerStudentActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-        new getStudentAsyncTask().execute();
+        new fetchStudentAsyncTask().execute();
     }
 
     private final OkHttpClient client = new OkHttpClient();
-    private class getStudentAsyncTask extends AsyncTask<String, Integer, String> {
+    private class fetchStudentAsyncTask extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -178,4 +198,75 @@ public class ManagerStudentActivity extends AppCompatActivity {
         }
     }
 
+    private class updateStudentAsyncTask extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                RequestBody formBody = new FormBody.Builder()
+                        .add("func", "student")
+                        .add("param1", "modify")
+                        .add("param2", params[0])
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(getServerString())
+                        .post(formBody)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    String rep = response.body().string();
+                    Log.i(TAG, "response:" + rep);
+                    return rep;
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+        }
+    }
+
+    private class deleteStudentAsyncTask extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                RequestBody formBody = new FormBody.Builder()
+                        .add("func", "student")
+                        .add("param1", "delete")
+                        .add("param2", params[0])
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url(getServerString())
+                        .post(formBody)
+                        .build();
+
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    String rep = response.body().string();
+                    Log.i(TAG, "response:" + rep);
+                    return rep;
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+        }
+    }
 }
