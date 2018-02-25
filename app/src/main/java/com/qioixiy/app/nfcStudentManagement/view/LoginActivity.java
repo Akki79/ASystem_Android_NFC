@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,9 @@ import com.qioixiy.R;
 import com.qioixiy.test.dialog.CustomDialog;
 import com.qioixiy.test.dialog.CustomDialogTest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.FormBody;
@@ -22,8 +27,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class LoginActivity extends AppCompatActivity {
+import static com.qioixiy.utils.ConstString.getServerString;
 
+public class LoginActivity extends AppCompatActivity {
+    private final String TAG = getClass().getSimpleName();
 
     private final OkHttpClient client = new OkHttpClient();
     private EditText editAccount,editPwd;
@@ -32,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfcstudentmangement_login);
-
 
         editAccount=(EditText)findViewById(R.id.account_edittext);
         editPwd=(EditText)findViewById(R.id.password_edittext);
@@ -48,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                     //showLoginFailedDialog();
                     Toast.makeText(LoginActivity.this, "用户名或者密码为空", Toast.LENGTH_SHORT).show();
                 } else {
-                    new AnsyTry().execute(account, pwd);
+                    new LoginAsyncTask().execute(account, pwd);
                 }
             }
         });
@@ -72,25 +78,27 @@ public class LoginActivity extends AppCompatActivity {
         }).create().show();
     }
 
-    private class AnsyTry extends AsyncTask<String, Integer, String> {
+    private class LoginAsyncTask extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            // TODO Auto-generated method stub
             try {
                 RequestBody formBody = new FormBody.Builder()
+                        .add("func", "login")
                         .add("account", params[0])
                         .add("pwd", params[1])
                         .build();
 
                 Request request = new Request.Builder()
-                        .url("http://baidu.com")
+                        .url(getServerString())
                         .post(formBody)
                         .build();
 
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
-                    return response.body().string();
+                    String rep = response.body().string();
+                    Log.i(TAG, "response:" + rep);
+                    return rep;
                 }
             } catch (IOException e) {
                 // TODO Auto-generated catch block
@@ -105,10 +113,19 @@ public class LoginActivity extends AppCompatActivity {
             super.onPostExecute(result);
 
             //TODO 此处判断返回值
-
-            Intent intent = new Intent();
-            intent.setClass(LoginActivity.this, MainActivity.class);
-            finish();
+            try {
+                JSONObject json = new JSONObject(result);
+                boolean res = json.getBoolean("result");
+                if (res) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
