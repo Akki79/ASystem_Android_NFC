@@ -20,6 +20,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/nfc_tag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="e.g.0C123..."
@@ -35,6 +36,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/nfc_define"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </TableRow>
@@ -50,7 +52,6 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:onClick="onClickedOk"
                 android:elevation="0dp"
                 android:tag="custom_login_button"
                 android:text="录入NFC"
@@ -61,7 +62,6 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:onClick="onClickedCannel"
                 android:tag="custom_signup_button"
                 android:text="取消"
                 android:textColor="@color/white" />
