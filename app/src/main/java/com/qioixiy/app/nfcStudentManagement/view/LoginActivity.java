@@ -112,7 +112,6 @@ public class LoginActivity extends AppCompatActivity {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
 
-            //TODO 此处判断返回值
             try {
                 JSONObject json = new JSONObject(result);
                 boolean res = json.getBoolean("result");

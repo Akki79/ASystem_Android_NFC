@@ -103,12 +103,15 @@ public class StudentManagementFragment extends Fragment {
         adapter.setOnItemClickListener(new StudentManagementAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                Intent intent;
                 switch (position) {
                     case 0:
-                        Intent intent = new Intent(getContext(), AddStudentActivity.class);
+                        intent = new Intent(getContext(), ManagerStudentActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
+                        intent = new Intent(getContext(), AddStudentActivity.class);
+                        startActivity(intent);
                         break;
                     case 2:
                         break;

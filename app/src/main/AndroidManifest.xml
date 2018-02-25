@@ -34,18 +34,23 @@
         </activity>
         <activity
             android:name=".app.nfcStudentManagement.view.LoginActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".app.nfcStudentManagement.view.MainActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".app.nfcStudentManagement.view.ManagerStudentActivity"
+            android:label="@string/app_activity_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
         <activity
             android:name=".app.nfcStudentManagement.view.AddStudentActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".app.nfcStudentManagement.view.AddNFCActivity"
             android:label="@string/app_activity_name"
@@ -89,13 +94,10 @@
             android:name=".test.activity.TestSwipeLayoutActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-        </activity>
-
-        <activity android:name=".test.mvpdemo.view.MainActivity"></activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".test.mvpdemo.view.MainActivity" />
         <activity android:name=".app.nfcStudentManagement.view.LoginUtilActivity" />
-        <activity android:name=".test.listview.MainActivity">
-        </activity>
+        <activity android:name=".test.listview.MainActivity"></activity>
     </application>
 
 </manifest>
