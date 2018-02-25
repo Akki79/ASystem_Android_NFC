@@ -1,17 +1,24 @@
 package com.qioixiy.app.nfcStudentManagement.view;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qioixiy.R;
+import com.qioixiy.app.nfcStudentManagement.model.Student;
+import com.qioixiy.test.dialog.CustomDialog;
+import com.qioixiy.test.dialog.CustomDialogTest;
 import com.qioixiy.test.listview.*;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,40 +37,81 @@ public class ManagerStudentActivity extends AppCompatActivity {
 
     private SlideListView listView;
     private List<String> list = new ArrayList<String>();
-    private ListViewSlideAdapter listViewSlideAdapter;
+    private List<Student> mStudentList = new ArrayList<Student>();
+    private ManagerStudentListViewSlideAdapter mListViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_student);
 
-        initData();
-        initView();
+        fetchData();
+        updateListView();
     }
 
-    private void initView() {
+    private void updateListView() {
         listView = (SlideListView) findViewById(R.id.list);
-        listViewSlideAdapter = new ListViewSlideAdapter(this, list);
-        listView.setAdapter(listViewSlideAdapter);
-        listViewSlideAdapter.setOnClickListenerEditOrDelete(new ListViewSlideAdapter.OnClickListenerEditOrDelete() {
+        mListViewAdapter = new ManagerStudentListViewSlideAdapter(this, mStudentList);
+        listView.setAdapter(mListViewAdapter);
+        mListViewAdapter.setOnClickListenerEditOrDelete(new ManagerStudentListViewSlideAdapter.OnClickListenerEditOrDelete() {
             @Override
             public void OnClickListenerEdit(int position) {
-                Toast.makeText(ManagerStudentActivity.this, "edit position: " + position, Toast.LENGTH_SHORT).show();
+                showEditDialog(position);
             }
 
             @Override
             public void OnClickListenerDelete(int position) {
-                Toast.makeText(ManagerStudentActivity.this, "delete position: " + position, Toast.LENGTH_SHORT).show();
+                mStudentList.remove(position);
+                mListViewAdapter.notifyDataSetChanged();
+                Toast.makeText(ManagerStudentActivity.this,
+                        mStudentList.get(position).getName() + "删除", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void initData() {
-        new getStudentAsyncTask().execute();
+    private void showEditDialog(int position) {
+        View customView = View.inflate(this, R.layout.dialog_student_manage_edit_layout, null);
 
-        for (int i = 0; i < 20; i++) {
-            list.add(new String("第" + i + "个item"));
-        }
+        TextView name = customView.findViewById(R.id.name);
+        TextView number = customView.findViewById(R.id.number);
+        TextView telphone = customView.findViewById(R.id.telphone);
+
+        final Student student = mStudentList.get(position);
+        name.setText(student.getName());
+        number.setText(student.getNumber());
+        telphone.setText(student.getTelphone());
+
+        final CustomDialog.Builder dialog = new CustomDialog.Builder(this);
+        dialog.setTitle("学员信息编辑")
+                .setContentView(customView)//设置自定义customView
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+
+                        TextView name = dialog.getContentView().findViewById(R.id.name);
+                        TextView number = dialog.getContentView().findViewById(R.id.number);
+                        TextView telphone = dialog.getContentView().findViewById(R.id.telphone);
+
+                        student.setName(name.getText().toString());
+                        student.setNumber(number.getText().toString());
+                        student.setTelphone(telphone.getText().toString());
+
+                        mListViewAdapter.notifyDataSetChanged();
+
+                        Toast.makeText(ManagerStudentActivity.this, "修改完成", Toast.LENGTH_SHORT).show();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                Toast.makeText(ManagerStudentActivity.this, "取消", Toast.LENGTH_SHORT).show();
+            }
+        }).create().show();
+    }
+
+    private void fetchData() {
+        new getStudentAsyncTask().execute();
     }
 
     private final OkHttpClient client = new OkHttpClient();
@@ -102,14 +150,28 @@ public class ManagerStudentActivity extends AppCompatActivity {
 
             try {
                 JSONObject json = new JSONObject(result);
-                boolean res = json.getBoolean("result");
-                if (res) {
-                    Intent intent = new Intent(ManagerStudentActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(ManagerStudentActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
+                JSONArray array = json.getJSONArray("items");
+
+                for (int index = 0; index < array.length(); index++) {
+                    JSONObject obj = array.getJSONObject(index);
+
+                    int id = obj.getInt("id");
+                    String name = obj.getString("name");
+                    String number = obj.getString("number");
+                    String telphone = obj.getString("telphone");
+                    String email = obj.getString("email");
+
+                    Student student = new Student();
+                    student.setId(id);
+                    student.setName(name);
+                    student.setNumber(number);
+                    student.setTelphone(telphone);
+                    student.setEmail(email);
+
+                    mStudentList.add(student);
                 }
+
+                updateListView();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

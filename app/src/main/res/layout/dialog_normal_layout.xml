@@ -14,7 +14,6 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/text_18_ffffff"
             android:layout_width="fill_parent"
             android:layout_height="40.0dip"
             android:gravity="center"
@@ -67,7 +66,7 @@
                 android:id="@+id/negativeButton"
                 style="@style/text_15_666666_sdw"
                 android:layout_width="114.0dip"
-                android:layout_height="40.0dip"
+                android:layout_height="30.0dip"
                 android:layout_marginLeft="20.0dip"
                 android:background="@drawable/btn_cancel_selector"
                 android:gravity="center"

@@ -82,6 +82,11 @@ public class CustomDialog extends Dialog {
             return this;
         }
 
+        public View getContentView() {
+            return contentView;
+        }
+
+
         /**
          * Set the positive button resource and it's listener
          *
