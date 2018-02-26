@@ -37,6 +37,7 @@ public class AddNFCActivity extends AppCompatActivity {
             switch (msg.what) {
                 case MSG_UPDATE_NFC_TAG:
                     TextView textView = findViewById(R.id.nfc_tag);
+                    textView.setText((String)msg.obj);
                     break;
             }
         }
