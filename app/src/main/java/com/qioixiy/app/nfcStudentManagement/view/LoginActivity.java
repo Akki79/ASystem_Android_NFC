@@ -8,13 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.JsonReader;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.qioixiy.R;
 import com.qioixiy.test.dialog.CustomDialog;
 import com.qioixiy.test.dialog.CustomDialogTest;
+import com.qioixiy.utils.ConstString;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +59,20 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     new LoginAsyncTask().execute(account, pwd);
                 }
+            }
+        });
+
+        Spinner serverListSpinner = findViewById(R.id.serverListSpinner);
+        serverListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selected = parent.getItemAtPosition(position).toString();
+                ConstString.setServerPrefix(selected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //未选中时候的操作
             }
         });
     }
