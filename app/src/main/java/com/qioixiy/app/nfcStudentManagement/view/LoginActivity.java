@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -36,21 +39,26 @@ public class LoginActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
 
     private final OkHttpClient client = new OkHttpClient();
-    private EditText editAccount,editPwd;
+    private EditText editAccount, editPwd;
+    private boolean needCheckLogin = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfcstudentmangement_login);
 
-        editAccount=(EditText)findViewById(R.id.account_edittext);
-        editPwd=(EditText)findViewById(R.id.password_edittext);
+        editAccount = (EditText) findViewById(R.id.account_edittext);
+        editPwd = (EditText) findViewById(R.id.password_edittext);
 
-        Button btnLogin=(Button)findViewById(R.id.custom_login_button);
+        Button btnLogin = (Button) findViewById(R.id.custom_login_button);
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
+                if (!needCheckLogin) {
+                    startMainActivity();
+                    return;
+                }
                 String account = editAccount.getText().toString();
                 String pwd = editPwd.getText().toString();
                 if (account.equals("") || pwd.equals("")) {
@@ -75,6 +83,15 @@ public class LoginActivity extends AppCompatActivity {
                 //未选中时候的操作
             }
         });
+
+        CheckBox loginCheckBox = findViewById(R.id.loginCheckBox);
+        loginCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                needCheckLogin = !isChecked;
+            }
+        });
     }
 
     private void showLoginFailedDialog() {
@@ -93,6 +110,12 @@ public class LoginActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         }).create().show();
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private class LoginAsyncTask extends AsyncTask<String, Integer, String> {
@@ -133,9 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject(result);
                 boolean res = json.getBoolean("result");
                 if (res) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    startMainActivity();
                 } else {
                     Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                 }
