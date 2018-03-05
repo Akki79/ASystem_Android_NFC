@@ -86,6 +86,7 @@ public class AddNFCActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                finish();
             }
         });
         Button cancel = findViewById(R.id.nfcstudentmangement_add_nfc_cannel_button);
