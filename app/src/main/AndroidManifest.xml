@@ -58,6 +58,12 @@
             android:theme="@style/AppTheme" >
         </activity>
         <activity
+            android:name=".app.nfcStudentManagement.view.StudentMainActivity"
+            android:label="@string/app_activity_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
             android:name=".app.nfcStudentManagement.view.AddNFCActivity"
             android:label="@string/app_activity_name"
             android:theme="@style/AppTheme">
