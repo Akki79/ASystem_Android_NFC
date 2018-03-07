@@ -1,6 +1,6 @@
 package com.qioixiy.app.nfcStudentManagement.model;
 
-public class NFCTag {
+public class NfcTag {
     private Integer id;
 
     private String tag;

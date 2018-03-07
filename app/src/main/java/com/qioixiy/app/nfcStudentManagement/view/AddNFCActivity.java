@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qioixiy.R;
-import com.qioixiy.app.nfcStudentManagement.model.NFCTag;
 import com.qioixiy.app.nfcStudentManagement.model.NetDataModel;
 
 import org.json.JSONException;

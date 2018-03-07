@@ -114,6 +114,8 @@ public class StudentManagementFragment extends Fragment {
                         startActivity(intent);
                         break;
                     case 2:
+                        intent = new Intent(getContext(), ManagerNFCActivity.class);
+                        startActivity(intent);
                         break;
                     case 3:
                         intent = new Intent(getContext(), AddNFCActivity.class);
