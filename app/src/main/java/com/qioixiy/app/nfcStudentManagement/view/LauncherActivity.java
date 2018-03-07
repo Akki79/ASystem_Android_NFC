@@ -25,7 +25,7 @@ public class LauncherActivity extends AppCompatActivity {
             LoginUtilActivity.checkLogin(context, new LoginUtilActivity.LoginCallback() {
                 @Override
                 public void onLogin() {
-                    Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LauncherActivity.this, ManagerMainActivity.class);
                     startActivity(intent);
                     finish();
                 }

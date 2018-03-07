@@ -65,7 +65,7 @@ public class StudentManagementFragment extends Fragment {
     }
 
     private void initSettings(View view) {
-        final MainActivity mMainActivity = (MainActivity) getActivity();
+        final ManagerMainActivity mMainActivity = (ManagerMainActivity) getActivity();
         final SwitchCompat switchNfc = view.findViewById(R.id.fragment_nfcstudentmangement_switch_nfc);
 
         switchNfc.setChecked(mMainActivity.isNfcStatusOpened());
@@ -106,7 +106,7 @@ public class StudentManagementFragment extends Fragment {
                 Intent intent;
                 switch (position) {
                     case 0:
-                        intent = new Intent(getContext(), ManagerStudentActivity.class);
+                        intent = new Intent(getContext(), ManageStudentActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
@@ -114,7 +114,7 @@ public class StudentManagementFragment extends Fragment {
                         startActivity(intent);
                         break;
                     case 2:
-                        intent = new Intent(getContext(), ManagerNFCActivity.class);
+                        intent = new Intent(getContext(), ManageNFCActivity.class);
                         startActivity(intent);
                         break;
                     case 3:

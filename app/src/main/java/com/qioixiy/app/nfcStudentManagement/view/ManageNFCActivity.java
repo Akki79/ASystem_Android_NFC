@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.qioixiy.R;
 import com.qioixiy.app.nfcStudentManagement.model.NfcTag;
-import com.qioixiy.app.nfcStudentManagement.model.Student;
 import com.qioixiy.test.dialog.CustomDialog;
 import com.qioixiy.test.listview.SlideListView;
 
@@ -31,7 +30,7 @@ import okhttp3.Response;
 
 import static com.qioixiy.utils.ConstString.getServerString;
 
-public class ManagerNFCActivity extends AppCompatActivity {
+public class ManageNFCActivity extends AppCompatActivity {
     private String TAG = getClass().getSimpleName();
 
     private SlideListView listView;
@@ -69,7 +68,7 @@ public class ManagerNFCActivity extends AppCompatActivity {
                 new deleteStudentAsyncTask().execute(array.toString());
                 mNfcList.remove(position);
                 mListViewAdapter.notifyDataSetChanged();
-                Toast.makeText(ManagerNFCActivity.this,
+                Toast.makeText(ManageNFCActivity.this,
                         "删除成功", Toast.LENGTH_SHORT).show();
             }
         });
@@ -112,13 +111,13 @@ public class ManagerNFCActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        Toast.makeText(ManagerNFCActivity.this, "修改完成", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ManageNFCActivity.this, "修改完成", Toast.LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                Toast.makeText(ManagerNFCActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageNFCActivity.this, "取消", Toast.LENGTH_SHORT).show();
             }
         }).create().show();
     }

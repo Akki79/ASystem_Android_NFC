@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 
@@ -15,7 +14,7 @@ import com.qioixiy.R;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class ManagerMainActivity extends AppCompatActivity {
 
     private StudentManagementFragment currentFragment;
     private StudentManagementViewPagerAdapter adapter;
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
      * Reload activity
      */
     public void reload() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, ManagerMainActivity.class));
         finish();
     }
 
