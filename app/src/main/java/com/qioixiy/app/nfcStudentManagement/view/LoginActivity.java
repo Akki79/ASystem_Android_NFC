@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 if (!needCheckLogin) {
-                    startMainActivity();
+                    startMainActivity("manager");
                     return;
                 }
                 String account = editAccount.getText().toString();
@@ -109,10 +109,15 @@ public class LoginActivity extends AppCompatActivity {
         }).create().show();
     }
 
-    private void startMainActivity() {
-        Intent intent = new Intent(LoginActivity.this, ManagerMainActivity.class);
-        startActivity(intent);
-        finish();
+    private void startMainActivity(String userType) {
+        if (userType.equals("manager")) {
+            Intent intent = new Intent(LoginActivity.this, ManagerMainActivity.class);
+            startActivity(intent);
+        } else if (userType == "student") {
+
+        }
+
+        //finish();
     }
 
     private class LoginAsyncTask extends AsyncTask<String, Integer, String> {
@@ -151,9 +156,12 @@ public class LoginActivity extends AppCompatActivity {
 
             try {
                 JSONObject json = new JSONObject(result);
-                boolean res = json.getBoolean("result");
-                if (res) {
-                    startMainActivity();
+                JSONObject obj = json.getJSONObject("result");
+                boolean result2 = obj.getBoolean("result");
+                String userType = obj.getString("userType");
+
+                if (result2) {
+                    startMainActivity(userType);
                 } else {
                     Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                 }
