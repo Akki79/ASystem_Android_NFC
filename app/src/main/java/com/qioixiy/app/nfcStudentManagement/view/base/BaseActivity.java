@@ -1,4 +1,4 @@
-package com.qioixiy.app.nfcStudentManagement.view;
+package com.qioixiy.app.nfcStudentManagement.view.base;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

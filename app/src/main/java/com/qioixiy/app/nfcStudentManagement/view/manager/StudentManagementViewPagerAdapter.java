@@ -1,8 +1,10 @@
-package com.qioixiy.app.nfcStudentManagement.view;
+package com.qioixiy.app.nfcStudentManagement.view.manager;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
+
+import com.qioixiy.app.nfcStudentManagement.view.manager.StudentManagementFragment;
 
 import java.util.ArrayList;
 

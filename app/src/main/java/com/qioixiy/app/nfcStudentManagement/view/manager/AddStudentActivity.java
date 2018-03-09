@@ -1,14 +1,8 @@
-package com.qioixiy.app.nfcStudentManagement.view;
+package com.qioixiy.app.nfcStudentManagement.view.manager;
 
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -17,8 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qioixiy.R;
-import com.qioixiy.app.nfcStudentManagement.model.Student;
 import com.qioixiy.app.nfcStudentManagement.presenter.AddStudentPresenter;
+import com.qioixiy.app.nfcStudentManagement.view.base.MvpView;
 
 import org.json.JSONException;
 import org.json.JSONObject;

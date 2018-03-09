@@ -1,4 +1,4 @@
-package com.qioixiy.app.nfcStudentManagement.view;
+package com.qioixiy.app.nfcStudentManagement.view.manager;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

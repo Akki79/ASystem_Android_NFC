@@ -2,7 +2,7 @@ package com.qioixiy.app.nfcStudentManagement.presenter;
 
 import com.qioixiy.app.nfcStudentManagement.model.DataModel;
 import com.qioixiy.app.nfcStudentManagement.model.Token;
-import com.qioixiy.app.nfcStudentManagement.view.MvpView;
+import com.qioixiy.app.nfcStudentManagement.view.base.MvpView;
 
 public class AddStudentPresenter extends BasePresenter<MvpView> {
     /**

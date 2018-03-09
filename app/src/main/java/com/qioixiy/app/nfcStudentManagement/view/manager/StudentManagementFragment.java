@@ -1,4 +1,4 @@
-package com.qioixiy.app.nfcStudentManagement.view;
+package com.qioixiy.app.nfcStudentManagement.view.manager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -106,7 +106,7 @@ public class StudentManagementFragment extends Fragment {
                 Intent intent;
                 switch (position) {
                     case 0:
-                        intent = new Intent(getContext(), ManageStudentActivity.class);
+                        intent = new Intent(getContext(), StudentManagementActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
@@ -114,7 +114,7 @@ public class StudentManagementFragment extends Fragment {
                         startActivity(intent);
                         break;
                     case 2:
-                        intent = new Intent(getContext(), ManageNFCActivity.class);
+                        intent = new Intent(getContext(), ManagerNFCActivity.class);
                         startActivity(intent);
                         break;
                     case 3:

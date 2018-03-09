@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".app.nfcStudentManagement.view.LauncherActivity"
+            android:name=".app.nfcStudentManagement.view.luncher.LauncherActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
@@ -33,38 +33,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.nfcStudentManagement.view.LoginActivity"
+            android:name=".app.nfcStudentManagement.view.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".app.nfcStudentManagement.view.ManagerMainActivity"
+            android:name=".app.nfcStudentManagement.view.manager.ManagerMainActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".app.nfcStudentManagement.view.ManageStudentActivity"
+            android:name=".app.nfcStudentManagement.view.manager.StudentManagementActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".app.nfcStudentManagement.view.AddStudentActivity"
+            android:name=".app.nfcStudentManagement.view.manager.AddStudentActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".app.nfcStudentManagement.view.ManageNFCActivity"
+            android:name=".app.nfcStudentManagement.view.manager.ManagerNFCActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".app.nfcStudentManagement.view.StudentMainActivity"
+            android:name=".app.nfcStudentManagement.view.student.StudentMainActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name=".app.nfcStudentManagement.view.AddNFCActivity"
+            android:name=".app.nfcStudentManagement.view.manager.AddNFCActivity"
             android:label="@string/app_activity_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -108,7 +108,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"></activity>
         <activity android:name=".test.mvpdemo.view.MainActivity" />
-        <activity android:name=".app.nfcStudentManagement.view.LoginUtilActivity" />
+        <activity android:name=".app.nfcStudentManagement.view.login.LoginUtilActivity" />
         <activity android:name=".test.listview.MainActivity"></activity>
     </application>
 

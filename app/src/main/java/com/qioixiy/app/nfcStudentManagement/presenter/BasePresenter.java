@@ -1,6 +1,6 @@
 package com.qioixiy.app.nfcStudentManagement.presenter;
 
-import com.qioixiy.app.nfcStudentManagement.view.BaseView;
+import com.qioixiy.app.nfcStudentManagement.view.base.BaseView;
 
 public class BasePresenter<V extends BaseView> {
     /**

@@ -1,4 +1,4 @@
-package com.qioixiy.app.nfcStudentManagement.view;
+package com.qioixiy.app.nfcStudentManagement.view.login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.qioixiy.R;
+import com.qioixiy.app.nfcStudentManagement.view.manager.ManagerMainActivity;
+import com.qioixiy.app.nfcStudentManagement.view.student.StudentMainActivity;
 import com.qioixiy.test.dialog.CustomDialog;
 import com.qioixiy.utils.ConstString;
 

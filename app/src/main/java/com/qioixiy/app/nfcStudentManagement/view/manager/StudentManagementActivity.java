@@ -1,4 +1,4 @@
-package com.qioixiy.app.nfcStudentManagement.view;
+package com.qioixiy.app.nfcStudentManagement.view.manager;
 
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -30,7 +30,7 @@ import okhttp3.Response;
 
 import static com.qioixiy.utils.ConstString.getServerString;
 
-public class ManageStudentActivity extends AppCompatActivity {
+public class StudentManagementActivity extends AppCompatActivity {
     private String TAG = getClass().getSimpleName();
 
     private SlideListView listView;
@@ -68,7 +68,7 @@ public class ManageStudentActivity extends AppCompatActivity {
                 new deleteStudentAsyncTask().execute(array.toString());
                 mStudentList.remove(position);
                 mListViewAdapter.notifyDataSetChanged();
-                Toast.makeText(ManageStudentActivity.this,
+                Toast.makeText(StudentManagementActivity.this,
                         "删除成功", Toast.LENGTH_SHORT).show();
             }
         });
@@ -121,13 +121,13 @@ public class ManageStudentActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        Toast.makeText(ManageStudentActivity.this, "修改完成", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StudentManagementActivity.this, "修改完成", Toast.LENGTH_SHORT).show();
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                Toast.makeText(ManageStudentActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudentManagementActivity.this, "取消", Toast.LENGTH_SHORT).show();
             }
         }).create().show();
     }

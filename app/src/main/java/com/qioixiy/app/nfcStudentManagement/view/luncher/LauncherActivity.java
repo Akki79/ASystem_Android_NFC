@@ -1,4 +1,4 @@
-package com.qioixiy.app.nfcStudentManagement.view;
+package com.qioixiy.app.nfcStudentManagement.view.luncher;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.qioixiy.R;
+import com.qioixiy.app.nfcStudentManagement.view.login.LoginUtilActivity;
+import com.qioixiy.app.nfcStudentManagement.view.manager.ManagerMainActivity;
 
 public class LauncherActivity extends AppCompatActivity {
 
