@@ -46,10 +46,12 @@ public class StudentCheckInActivity extends AppCompatActivity {
 
                     JSONObject obj = new JSONObject();
                     try {
-                        obj.put("StudentId", studentId);
+                        obj.put("studentId", studentId);
                         obj.put("nfcTag", nfcTag);
                         obj.put("geo", geo);
                         obj.put("type", type);
+
+                        Log.i(TAG, obj.toString());
 
                         NetDataModel.sendHttpRequest(new NetDataModel.OnHttpRequestReturn() {
                             @Override

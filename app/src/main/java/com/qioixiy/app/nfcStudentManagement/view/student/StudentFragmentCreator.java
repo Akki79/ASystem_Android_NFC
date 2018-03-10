@@ -3,6 +3,7 @@ package com.qioixiy.app.nfcStudentManagement.view.student;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,10 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.qioixiy.R;
+import com.qioixiy.app.nfcStudentManagement.model.DynInfo;
+import com.qioixiy.app.nfcStudentManagement.model.LoginModel;
 import com.qioixiy.app.nfcStudentManagement.model.NetDataModel;
+import com.qioixiy.app.nfcStudentManagement.model.NfcTag;
 import com.qioixiy.app.nfcStudentManagement.model.StudentModel;
 import com.qioixiy.app.nfcStudentManagement.view.manager.AddNFCActivity;
 import com.qioixiy.app.nfcStudentManagement.view.manager.AddStudentActivity;
@@ -27,11 +31,15 @@ import com.qioixiy.app.nfcStudentManagement.view.manager.ManagerNFCActivity;
 import com.qioixiy.app.nfcStudentManagement.view.manager.StudentManagementActivity;
 import com.qioixiy.app.nfcStudentManagement.view.manager.StudentManagementAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  *
@@ -130,9 +138,82 @@ public class StudentFragmentCreator extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        StudentModel studentModel = new StudentModel();
-        List<String> info = studentModel.getSelfInfo();
+        NetDataModel.sendHttpRequest(new NetDataModel.OnHttpRequestReturn() {
+            @Override
+            public void onReturn(String response) {
+                List<String> info = new ArrayList<String>();
 
+                try {
+                    // NfcTags
+                    List<NfcTag> mNfcList = new ArrayList<>();
+                    String responseNfcTag = NetDataModel.sendHttpRequestSync("nfc", "viewall");
+                    JSONObject json = new JSONObject(responseNfcTag);
+                    JSONArray array = json.getJSONArray("items");
+
+                    for (int index = 0; index < array.length(); index++) {
+                        JSONObject obj = array.getJSONObject(index);
+
+                        int id = obj.getInt("id");
+                        String tag = obj.getString("tag");
+                        String define = obj.getString("define");
+
+                        NfcTag nfcTag = new NfcTag();
+                        nfcTag.setId(id);
+                        nfcTag.setTag(tag);
+                        nfcTag.setDefine(define);
+
+                        mNfcList.add(nfcTag);
+                    }
+
+                    json = new JSONObject(response);
+                    array = json.getJSONArray("items");
+
+                    int userId = LoginModel.instance().getUserId();
+                    for (int index = 0; index < array.length(); index++) {
+                        JSONObject obj = array.getJSONObject(index);
+
+                        int id = obj.getInt("id");
+                        int studentId = obj.getInt("studentId");
+                        String nfcTag = obj.getString("nfcTag");
+                        String geo = obj.getString("geo");
+                        String type = obj.getString("type");
+                        String createTimestamp = obj.getString("createTimestamp");
+
+                        if (userId != studentId) {
+                            continue;
+                        }
+
+                        String str = new String();
+                        str += createTimestamp;
+                        for(NfcTag nfcTag1 : mNfcList) {
+                            if (nfcTag1.getTag().equals(nfcTag)) {
+                                str += "在" + nfcTag1.getDefine();
+                                break;
+                            }
+                        }
+                        if (type.equals("check_in")) {
+                            str += "签入";
+                        } else {
+                            str += "签出";
+                        }
+
+                        info.add(str);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if (info.size() == 0) {
+                    info.add("无记录");
+                }
+
+                StudentListInfoViewAdapter adapter = new StudentListInfoViewAdapter(info);
+                recyclerView.setAdapter(adapter);
+            }
+        }, "dyn_info", "viewall");
+
+        List<String> info = new ArrayList<String>();
+        info.add("加载中");
         StudentListInfoViewAdapter adapter = new StudentListInfoViewAdapter(info);
         recyclerView.setAdapter(adapter);
     }
