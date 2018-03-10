@@ -21,6 +21,11 @@ import android.widget.FrameLayout;
 import com.qioixiy.R;
 import com.qioixiy.app.nfcStudentManagement.model.NetDataModel;
 import com.qioixiy.app.nfcStudentManagement.model.StudentModel;
+import com.qioixiy.app.nfcStudentManagement.view.manager.AddNFCActivity;
+import com.qioixiy.app.nfcStudentManagement.view.manager.AddStudentActivity;
+import com.qioixiy.app.nfcStudentManagement.view.manager.ManagerNFCActivity;
+import com.qioixiy.app.nfcStudentManagement.view.manager.StudentManagementActivity;
+import com.qioixiy.app.nfcStudentManagement.view.manager.StudentManagementAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +58,7 @@ public class StudentFragmentCreator extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         switch (getArguments().getInt("index", 0)) {
             case 0:
-                View view = inflater.inflate(R.layout.fragment_nfcstudentmangement_student_uploader, container, false);
+                View view = inflater.inflate(R.layout.fragment_nfcstudentmangement_manager, container, false);
                 initStudentUploader(view);
                 return view;
             case 1:
@@ -71,32 +76,37 @@ public class StudentFragmentCreator extends Fragment {
 
     private void initStudentUploader(View view)
     {
-        Button check_in = view.findViewById(R.id.check_in);
-        check_in.setOnClickListener(new View.OnClickListener() {
+        fragmentContainer = view.findViewById(R.id.fragment_nfcstudentmangement_container);
+        recyclerView = view.findViewById(R.id.fragment_nfcstudentmangement_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        ArrayList<String> itemsData = new ArrayList<>();
+        itemsData.add("签入");
+        itemsData.add("签出");
+
+        StudentManagementAdapter adapter = new StudentManagementAdapter(itemsData);
+
+        adapter.setOnItemClickListener(new StudentManagementAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                String nfcTag = null;
-                String studentId = "11";
-                 String geo = null;
-                 String type = null;
-
-                EditText editText = v.findViewById(R.id.nfc_tag);
-                nfcTag = editText.getText().toString();
-                if (nfcTag.equals("")) {
-                    //showToast("请靠近NFC标签");
-                    return;
-                }
-
-                JSONObject obj = new JSONObject();
-                try {
-                    obj.put("nfcTag", nfcTag);
-                    NetDataModel.sendHttpRequest("dyn_info", "create", obj.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onItemClick(View view, int position) {
+                Intent intent;
+                switch (position) {
+                    case 0:
+                        intent = new Intent(getContext(), StudentCheckInActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent = new Intent(getContext(), StudentCheckOutActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
                 }
             }
         });
-
+        recyclerView.setAdapter(adapter);
     }
 
     private void initSettings(View view) {

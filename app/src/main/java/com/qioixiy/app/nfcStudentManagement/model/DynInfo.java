@@ -1,4 +1,4 @@
-package com.xxx.webapp.asystem.pojo;
+package com.qioixiy.app.nfcStudentManagement.model;
 
 import java.util.Date;
 

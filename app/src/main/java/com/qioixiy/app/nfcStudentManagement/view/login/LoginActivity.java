@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.qioixiy.R;
+import com.qioixiy.app.nfcStudentManagement.model.LoginModel;
 import com.qioixiy.app.nfcStudentManagement.view.manager.ManagerMainActivity;
 import com.qioixiy.app.nfcStudentManagement.view.student.StudentMainActivity;
 import com.qioixiy.test.dialog.CustomDialog;
@@ -167,6 +168,8 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject obj = json.getJSONObject("result");
                 boolean result2 = obj.getBoolean("result");
                 String userType = obj.getString("userType");
+                int userId = obj.getInt("userId");
+                LoginModel.instance().setUserId(userId);
 
                 if (result2) {
                     startMainActivity(userType);
