@@ -4,6 +4,10 @@ public class ConstString {
 
     static String sServerPrefix = "http://192.168.2.153:8080";
 
+    public  static String getServerPrefix() {
+        return sServerPrefix;
+    }
+
     public static void setServerPrefix(String pref) {
         sServerPrefix = pref;
     }

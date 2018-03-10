@@ -2,6 +2,8 @@ package com.qioixiy.app.nfcStudentManagement.view.student;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.qioixiy.R;
 import com.qioixiy.app.nfcStudentManagement.model.DynInfo;
@@ -30,6 +33,7 @@ import com.qioixiy.app.nfcStudentManagement.view.manager.AddStudentActivity;
 import com.qioixiy.app.nfcStudentManagement.view.manager.ManagerNFCActivity;
 import com.qioixiy.app.nfcStudentManagement.view.manager.StudentManagementActivity;
 import com.qioixiy.app.nfcStudentManagement.view.manager.StudentManagementAdapter;
+import com.qioixiy.utils.Geocoder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +44,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
+import static com.qioixiy.utils.ByteArrayChange.ByteArrayToHexString;
 
 /**
  *
@@ -60,6 +66,18 @@ public class StudentFragmentCreator extends Fragment {
         fragment.setArguments(b);
         return fragment;
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    StudentListInfoViewAdapter adapter = (StudentListInfoViewAdapter)msg.obj;
+                    recyclerView.setAdapter(adapter);
+                    break;
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -141,6 +159,9 @@ public class StudentFragmentCreator extends Fragment {
         NetDataModel.sendHttpRequest(new NetDataModel.OnHttpRequestReturn() {
             @Override
             public void onReturn(String response) {
+
+                Geocoder geocoder = new Geocoder();
+
                 List<String> info = new ArrayList<String>();
 
                 try {
@@ -187,8 +208,16 @@ public class StudentFragmentCreator extends Fragment {
                         str += createTimestamp;
                         for(NfcTag nfcTag1 : mNfcList) {
                             if (nfcTag1.getTag().equals(nfcTag)) {
-                                str += "在" + nfcTag1.getDefine();
+                                str += nfcTag1.getDefine();
                                 break;
+                            }
+                        }
+
+                        String[] s = geo.split(",");
+                        if (s.length == 2) {
+                            List<String> address = geocoder.getFromLocation(s[0], s[1]);
+                            if (address.size() > 0) {
+                                str += "(" + address.get(0) + ")";
                             }
                         }
                         if (type.equals("check_in")) {
@@ -208,7 +237,11 @@ public class StudentFragmentCreator extends Fragment {
                 }
 
                 StudentListInfoViewAdapter adapter = new StudentListInfoViewAdapter(info);
-                recyclerView.setAdapter(adapter);
+
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = adapter;
+                handler.sendMessage(msg);
             }
         }, "dyn_info", "viewall");
 

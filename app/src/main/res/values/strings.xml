@@ -14,4 +14,9 @@
     <string name="student_tab1">上传动态信息</string>
     <string name="student_tab2">查看个人信息</string>
     <string name="student_tab3">设置</string>
+
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="gpsNotifyMsg">当前应用需要打开定位功能。\n\n请点击\"设置\"-\"定位服务\"-打开定位功能。</string>
+    <string name="setting">设置</string>
 </resources>
