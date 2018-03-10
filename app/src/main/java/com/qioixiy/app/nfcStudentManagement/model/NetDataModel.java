@@ -18,10 +18,23 @@ public class NetDataModel {
 
     private static final OkHttpClient client = new OkHttpClient();
 
+    public interface OnHttpRequestReturn {
+        void onReturn(String response);
+    }
+
     public static void sendHttpRequest(String... params) {
+        sendHttpRequest(null, params);
+    }
+
+    public static void sendHttpRequest(OnHttpRequestReturn listener, String... params) {
 
         class CommonAsyncTask extends AsyncTask<String, Integer, String> {
             private String TAG = getClass().getSimpleName();
+            private OnHttpRequestReturn listener = null;
+
+            CommonAsyncTask(OnHttpRequestReturn listener) {
+                this.listener = listener;
+            }
 
             @Override
             protected String doInBackground(String... params) {
@@ -44,6 +57,11 @@ public class NetDataModel {
                     if (response.isSuccessful()) {
                         String rep = response.body().string();
                         Log.i(TAG, "response:" + rep);
+
+                        if (listener != null) {
+                            listener.onReturn(rep);
+                        }
+
                         return rep;
                     }
                 } catch (IOException e) {
@@ -60,7 +78,7 @@ public class NetDataModel {
             }
         }
 
-        new CommonAsyncTask().execute(params);
+        new CommonAsyncTask(listener).execute(params);
     }
 
     public static String sendHttpRequestSync(String... params) {

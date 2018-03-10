@@ -51,7 +51,12 @@ public class StudentCheckInActivity extends AppCompatActivity {
                         obj.put("geo", geo);
                         obj.put("type", type);
 
-                        NetDataModel.sendHttpRequest("dyn_info", "create", obj.toString());
+                        NetDataModel.sendHttpRequest(new NetDataModel.OnHttpRequestReturn() {
+                            @Override
+                            public void onReturn(String response) {
+
+                            }
+                        }, "dyn_info", "create", obj.toString());
 
                         showToast("签到成功");
 
