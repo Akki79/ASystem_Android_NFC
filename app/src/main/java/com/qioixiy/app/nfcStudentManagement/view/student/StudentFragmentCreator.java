@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.qioixiy.R;
@@ -74,16 +75,22 @@ public class StudentFragmentCreator extends Fragment {
         check_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tag = "";
-                if (tag.equals("")) {
+                String nfcTag = null;
+                String studentId = "11";
+                 String geo = null;
+                 String type = null;
+
+                EditText editText = v.findViewById(R.id.nfc_tag);
+                nfcTag = editText.getText().toString();
+                if (nfcTag.equals("")) {
                     //showToast("请靠近NFC标签");
                     return;
                 }
 
                 JSONObject obj = new JSONObject();
                 try {
-                    obj.put("tag", tag);
-                    NetDataModel.sendHttpRequest("nfc", "create", obj.toString());
+                    obj.put("nfcTag", nfcTag);
+                    NetDataModel.sendHttpRequest("dyn_info", "create", obj.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -148,5 +155,15 @@ public class StudentFragmentCreator extends Fragment {
             Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
             fragmentContainer.startAnimation(fadeOut);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }

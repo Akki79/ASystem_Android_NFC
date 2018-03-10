@@ -14,6 +14,7 @@ import okhttp3.Response;
 import static com.qioixiy.utils.ConstString.getServerString;
 
 public class NetDataModel {
+    private static String TAG = NetDataModel.class.getSimpleName();
 
     private static final OkHttpClient client = new OkHttpClient();
 
@@ -60,5 +61,36 @@ public class NetDataModel {
         }
 
         new CommonAsyncTask().execute(params);
+    }
+
+    public static String sendHttpRequestSync(String... params) {
+
+        FormBody.Builder builder = new FormBody.Builder()
+                .add("func", params[0]);
+
+        for (int i = 1; i < params.length; i++) {
+            builder.add("param" + i, params[i]);
+        }
+
+        RequestBody formBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(getServerString())
+                .post(formBody)
+                .build();
+
+        Response response = null;
+        try {
+            response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String rep = response.body().string();
+                Log.i(TAG, "response:" + rep);
+                return rep;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 }

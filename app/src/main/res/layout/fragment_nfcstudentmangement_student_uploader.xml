@@ -3,8 +3,9 @@
     android:id="@+id/fragment_nfcstudentmangement_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
-
 
     <Button
         android:id="@+id/check_in"
@@ -23,4 +24,27 @@
         android:layout_margin="10dp"
         android:background="@drawable/round_corner_button"
         android:text="签出" />
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标签UID"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/nfc_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请靠近NFC标签"
+                android:enabled="false"/>
+        </TableRow>
+
+     </TableLayout>
 </LinearLayout>
