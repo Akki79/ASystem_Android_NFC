@@ -21,8 +21,6 @@ public class StudentManagementViewPagerAdapter extends FragmentPagerAdapter {
 		fragments.add(StudentManagementFragment.newInstance(0));
 		fragments.add(StudentManagementFragment.newInstance(1));
 		fragments.add(StudentManagementFragment.newInstance(2));
-		fragments.add(StudentManagementFragment.newInstance(3));
-		fragments.add(StudentManagementFragment.newInstance(4));
 	}
 
 	@Override

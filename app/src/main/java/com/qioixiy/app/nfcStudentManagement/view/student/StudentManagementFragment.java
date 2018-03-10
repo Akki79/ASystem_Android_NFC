@@ -57,7 +57,7 @@ public class StudentManagementFragment extends Fragment {
                 return view;
             case 2:
                 view = inflater.inflate(R.layout.fragment_nfcstudentmangement_settings, container, false);
-                initSettings(view);
+                //initSettings(view);
                 return view;
             default:
                 return null;
@@ -65,7 +65,7 @@ public class StudentManagementFragment extends Fragment {
     }
 
     private void initSettings(View view) {
-        final ManagerMainActivity mMainActivity = (ManagerMainActivity) getActivity();
+        final StudentMainActivity mMainActivity = (StudentMainActivity) getActivity();
         final SwitchCompat switchNfc = view.findViewById(R.id.fragment_nfcstudentmangement_switch_nfc);
 
         switchNfc.setChecked(mMainActivity.isNfcStatusOpened());
@@ -95,8 +95,6 @@ public class StudentManagementFragment extends Fragment {
         ArrayList<String> itemsData = new ArrayList<>();
         itemsData.add("管理学员");
         itemsData.add("添加学员");
-        itemsData.add("管理NFC标签");
-        itemsData.add("添加NFC标签");
 
         StudentManagementAdapter adapter = new StudentManagementAdapter(itemsData);
 
@@ -107,18 +105,6 @@ public class StudentManagementFragment extends Fragment {
                 switch (position) {
                     case 0:
                         intent = new Intent(getContext(), StudentManagementActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        intent = new Intent(getContext(), AddStudentActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 2:
-                        intent = new Intent(getContext(), ManagerNFCActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 3:
-                        intent = new Intent(getContext(), AddNFCActivity.class);
                         startActivity(intent);
                         break;
                     default:

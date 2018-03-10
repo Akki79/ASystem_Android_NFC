@@ -14,7 +14,7 @@ import com.qioixiy.R;
 
 import java.util.ArrayList;
 
-public class ManagerMainActivity extends AppCompatActivity {
+public class StudentMainActivity extends AppCompatActivity {
 
     private StudentManagementFragment currentFragment;
     private StudentManagementViewPagerAdapter adapter;
@@ -140,7 +140,7 @@ public class ManagerMainActivity extends AppCompatActivity {
      * Reload activity
      */
     public void reload() {
-        startActivity(new Intent(this, ManagerMainActivity.class));
+        startActivity(new Intent(this, StudentMainActivity.class));
         finish();
     }
 
