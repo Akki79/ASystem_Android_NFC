@@ -11,7 +11,7 @@
     <string name="manager_tab2">查看</string>
     <string name="manager_tab3">设置</string>
 
-    <string name="student_tab1">上传</string>
-    <string name="student_tab2">查看</string>
+    <string name="student_tab1">上传动态信息</string>
+    <string name="student_tab2">查看个人信息</string>
     <string name="student_tab3">设置</string>
 </resources>

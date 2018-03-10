@@ -2,6 +2,7 @@ package com.qioixiy.app.nfcStudentManagement.view.manager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -72,16 +73,16 @@ public class StudentManagementFragment extends Fragment {
         switchNfc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mMainActivity.updateNfcStatus(isChecked);
+                startActivity(new Intent(Settings.ACTION_NFC_SETTINGS));
             }
         });
 
-        final List<String> titleStates = new ArrayList<>();
-        for (AHBottomNavigation.TitleState titleState : AHBottomNavigation.TitleState.values()) {
-            titleStates.add(titleState.toString());
-        }
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, titleStates);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //final List<String> titleStates = new ArrayList<>();
+        //for (AHBottomNavigation.TitleState titleState : AHBottomNavigation.TitleState.values()) {
+        //    titleStates.add(titleState.toString());
+        //}
+        //ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, titleStates);
+        //spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
     private void initManager(View view) {

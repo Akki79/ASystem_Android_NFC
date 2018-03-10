@@ -9,22 +9,22 @@ import java.util.ArrayList;
 /**
  *
  */
-public class StudentManagementViewPagerAdapter extends FragmentPagerAdapter {
+public class StudentFragmentPagerAdapter extends FragmentPagerAdapter {
 
-	private ArrayList<StudentManagementFragment> fragments = new ArrayList<>();
-	private StudentManagementFragment currentFragment;
+	private ArrayList<StudentFragmentCreator> fragments = new ArrayList<>();
+	private StudentFragmentCreator currentFragment;
 
-	public StudentManagementViewPagerAdapter(FragmentManager fm) {
+	public StudentFragmentPagerAdapter(FragmentManager fm) {
 		super(fm);
 
 		fragments.clear();
-		fragments.add(StudentManagementFragment.newInstance(0));
-		fragments.add(StudentManagementFragment.newInstance(1));
-		fragments.add(StudentManagementFragment.newInstance(2));
+		fragments.add(StudentFragmentCreator.create(0));
+		fragments.add(StudentFragmentCreator.create(1));
+		fragments.add(StudentFragmentCreator.create(2));
 	}
 
 	@Override
-	public StudentManagementFragment getItem(int position) {
+	public StudentFragmentCreator getItem(int position) {
 		return fragments.get(position);
 	}
 
@@ -36,7 +36,7 @@ public class StudentManagementViewPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public void setPrimaryItem(ViewGroup container, int position, Object object) {
 		if (getCurrentFragment() != object) {
-			currentFragment = ((StudentManagementFragment) object);
+			currentFragment = ((StudentFragmentCreator) object);
 		}
 		super.setPrimaryItem(container, position, object);
 	}
@@ -44,7 +44,7 @@ public class StudentManagementViewPagerAdapter extends FragmentPagerAdapter {
 	/**
 	 * Get the current fragment
 	 */
-	public StudentManagementFragment getCurrentFragment() {
+	public StudentFragmentCreator getCurrentFragment() {
 		return currentFragment;
 	}
 }

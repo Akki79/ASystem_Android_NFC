@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class StudentMainActivity extends AppCompatActivity {
 
-    private StudentManagementFragment currentFragment;
-    private StudentManagementViewPagerAdapter adapter;
+    private StudentFragmentCreator currentFragment;
+    private StudentFragmentPagerAdapter adapter;
     private ArrayList<AHBottomNavigationItem> bottomNavigationItems = new ArrayList<>();
     private Handler handler = new Handler();
 
@@ -50,9 +50,9 @@ public class StudentMainActivity extends AppCompatActivity {
         bottomNavigation = findViewById(R.id.bottom_navigation);
         viewPager = findViewById(R.id.view_pager);
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.manager_tab1, R.drawable.ic_launcher_background, R.color.colorBottomNavigationInactive);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.manager_tab2, R.drawable.ic_launcher_background, R.color.colorBottomNavigationInactive);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.manager_tab3, R.drawable.ic_launcher_background, R.color.colorBottomNavigationInactive);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.student_tab1, R.drawable.ic_launcher_background, R.color.colorBottomNavigationInactive);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.student_tab2, R.drawable.ic_launcher_background, R.color.colorBottomNavigationInactive);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.student_tab3, R.drawable.ic_launcher_background, R.color.colorBottomNavigationInactive);
 
         bottomNavigationItems.add(item1);
         bottomNavigationItems.add(item2);
@@ -91,7 +91,7 @@ public class StudentMainActivity extends AppCompatActivity {
         });
 
         viewPager.setOffscreenPageLimit(4);
-        adapter = new StudentManagementViewPagerAdapter(getSupportFragmentManager());
+        adapter = new StudentFragmentPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
         currentFragment = adapter.getCurrentFragment();

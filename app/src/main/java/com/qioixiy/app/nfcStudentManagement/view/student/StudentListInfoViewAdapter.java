@@ -9,17 +9,18 @@ import android.widget.TextView;
 import com.qioixiy.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  */
-public class StudentManagementAdapter extends RecyclerView.Adapter<StudentManagementAdapter.ViewHolder> {
+public class StudentListInfoViewAdapter extends RecyclerView.Adapter<StudentListInfoViewAdapter.ViewHolder> {
 
     public static interface OnItemClickListener {
         void onItemClick(View view , int position);
     }
 
-	private ArrayList<String> mDataset = new ArrayList<>();
+	private List<String> mDataset = new ArrayList<>();
     private OnItemClickListener mOnItemClickListener = null;
 
 	public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -30,13 +31,13 @@ public class StudentManagementAdapter extends RecyclerView.Adapter<StudentManage
 		}
 	}
 
-	public StudentManagementAdapter(ArrayList<String> dataset) {
+	public StudentListInfoViewAdapter(List<String> dataset) {
 		mDataset.clear();
 		mDataset.addAll(dataset);
 	}
 
 	@Override
-	public StudentManagementAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_nfcstudentmangement, parent, false);
 		ViewHolder vh = new ViewHolder(v);
         v.setOnClickListener(new View.OnClickListener(){
