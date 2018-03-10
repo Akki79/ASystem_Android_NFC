@@ -16,8 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.qioixiy.R;
-import com.qioixiy.app.nfcStudentManagement.view.manager.ManagerMainActivity;
-import com.qioixiy.app.nfcStudentManagement.view.student.StudentMainActivity;
+import com.qioixiy.app.nfcStudentManagement.view.student.ManagerMainActivity;
 import com.qioixiy.test.dialog.CustomDialog;
 import com.qioixiy.utils.ConstString;
 
@@ -116,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, ManagerMainActivity.class);
             startActivity(intent);
         } else if (userType.equals("student")) {
-            Intent intent = new Intent(LoginActivity.this, StudentMainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, com.qioixiy.app.nfcStudentManagement.view.student.ManagerMainActivity.class);
             startActivity(intent);
         }
 

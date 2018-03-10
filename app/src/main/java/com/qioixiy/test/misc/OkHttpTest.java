@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.qioixiy.R;
-import com.qioixiy.app.nfcStudentManagement.App;
+import com.qioixiy.app.nfcStudentManagement.app.App;
 
 import java.io.IOException;
 import java.util.List;

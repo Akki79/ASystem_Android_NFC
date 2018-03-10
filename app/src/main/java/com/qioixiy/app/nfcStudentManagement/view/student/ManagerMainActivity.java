@@ -1,4 +1,4 @@
-package com.qioixiy.app.nfcStudentManagement.view.manager;
+package com.qioixiy.app.nfcStudentManagement.view.student;
 
 import android.content.Intent;
 import android.os.Build;
