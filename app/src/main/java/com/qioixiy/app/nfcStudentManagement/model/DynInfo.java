@@ -15,6 +15,10 @@ public class DynInfo {
 
     private Date createTimestamp;
 
+    private String checkState;
+
+    private String location;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +65,21 @@ public class DynInfo {
 
     public void setCreateTimestamp(Date createTimestamp) {
         this.createTimestamp = createTimestamp;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setCheckState(String checkState) {
+        this.checkState = checkState;
+    }
+
+    public String getCheckState() {
+        return checkState;
     }
 }

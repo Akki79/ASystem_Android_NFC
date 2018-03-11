@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.qioixiy.R;
+import com.qioixiy.app.nfcStudentManagement.view.student.StudentCheckInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,9 +148,11 @@ public class StudentManagementFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 String text = Integer.toString(position);
-                Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
                 switch (position) {
                     case 0:
+                        Intent intent = new Intent(getContext(), StudentInfoViewAllActivity.class);
+                        startActivity(intent);
                         break;
                     case 1:
                         break;
