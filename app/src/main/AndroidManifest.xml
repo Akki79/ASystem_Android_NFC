@@ -46,7 +46,7 @@
             android:name=".app.nfcStudentManagement.view.manager.StudentManagementActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".app.nfcStudentManagement.view.manager.AddStudentActivity"
             android:label="@string/app_activity_name"
@@ -56,11 +56,16 @@
             android:name=".app.nfcStudentManagement.view.manager.ManagerNFCActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".app.nfcStudentManagement.view.manager.StudentInfoViewAllActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".app.nfcStudentManagement.view.manager.StudentInfoViewAllActivity"
             android:label="@string/app_activity_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".app.nfcStudentManagement.view.manager.StudentInfoAnalysisActivity"
+            android:label="@string/app_activity_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" ></activity>
 
         <activity
             android:name=".app.nfcStudentManagement.view.manager.AddNFCActivity"

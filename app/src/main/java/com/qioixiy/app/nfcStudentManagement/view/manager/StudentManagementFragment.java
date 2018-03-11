@@ -155,6 +155,8 @@ public class StudentManagementFragment extends Fragment {
                         startActivity(intent);
                         break;
                     case 1:
+                        intent = new Intent(getContext(), StudentInfoAnalysisActivity.class);
+                        startActivity(intent);
                         break;
                     default:
                         break;
