@@ -1,6 +1,7 @@
 package com.qioixiy.app.nfcStudentManagement.view.manager;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -20,8 +21,15 @@ import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.qioixiy.R;
+import com.qioixiy.app.nfcStudentManagement.model.DataModel;
+import com.qioixiy.app.nfcStudentManagement.model.DynInfo;
+import com.qioixiy.app.nfcStudentManagement.model.NfcTag;
+import com.qioixiy.app.nfcStudentManagement.model.Student;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class StudentInfoAnalysisActivity extends AppCompatActivity implements OnChartValueSelectedListener, View.OnClickListener {
 
@@ -50,6 +58,72 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
         setContentView(R.layout.activity_student_info_analysis);
 
         initView();
+
+        fetchData();
+    }
+
+    private void fetchData() {
+
+        new AsyncTask<String, Integer, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                getData();
+                return null;
+            }
+        }.execute();
+
+    }
+
+    private void getData() {
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+
+        List<Student> studentList = DataModel.getStudentList();
+        List<DynInfo> dynInfoList = DataModel.getDynInfoList();
+        List<NfcTag> nfcTagList = DataModel.getNfcTagList();
+
+        for (Student student : studentList) {
+            String nfcTag = null;
+            for (DynInfo dynInfo : dynInfoList) {
+                if (dynInfo.getStudentId() == student.getId()) {
+                    nfcTag = dynInfo.getNfcTag();
+                }
+            }
+
+            String nfcTag_Type = "未知";
+            if (nfcTag != null) {
+                for (NfcTag nfcTag2 : nfcTagList) {
+                    if (nfcTag2.getTag().equals(nfcTag)) {
+                        nfcTag_Type = nfcTag2.getDefine();
+
+                        if (map.get(nfcTag_Type) != null) {
+                            map.put(nfcTag_Type, map.get(nfcTag_Type) + 1);
+                        } else {
+                            map.put(nfcTag_Type, 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        Integer total = 0;
+        for (String key : map.keySet()) {
+            total += map.get(key);
+        }
+
+        //数据
+        ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
+        for (String key : map.keySet()) {
+            double ratio = map.get(key)/(float)total;
+            Integer value = (int)(ratio * 100);
+            entries.add(new PieEntry(40, key));
+        }
+
+        if (entries.size() == 0) {
+            entries.add(new PieEntry(100, "其他"));
+        }
+        //设置数据
+        setData(entries);
     }
 
     //初始化View
@@ -104,10 +178,7 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
 
         //模拟数据
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-        entries.add(new PieEntry(40, "图书馆"));
-        entries.add(new PieEntry(20, "教室"));
-        entries.add(new PieEntry(30, "实验室"));
-        entries.add(new PieEntry(10, "其他"));
+        entries.add(new PieEntry(100, "其他"));
 
         //设置数据
         setData(entries);
