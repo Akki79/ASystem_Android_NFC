@@ -2,6 +2,8 @@ package com.qioixiy.app.nfcStudentManagement.view.manager;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -25,6 +27,7 @@ import com.qioixiy.app.nfcStudentManagement.model.DataModel;
 import com.qioixiy.app.nfcStudentManagement.model.DynInfo;
 import com.qioixiy.app.nfcStudentManagement.model.NfcTag;
 import com.qioixiy.app.nfcStudentManagement.model.Student;
+import com.qioixiy.app.nfcStudentManagement.view.student.StudentListInfoViewAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +54,21 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
     private Button btn_show_center_text;
     //旋转动画
     private Button btn_anim_rotating;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    ArrayList<PieEntry> entries = (ArrayList<PieEntry>)msg.obj;
+                    //设置数据
+                    setData(entries);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,16 +132,17 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
         //数据
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
         for (String key : map.keySet()) {
-            double ratio = map.get(key)/(float)total;
-            Integer value = (int)(ratio * 100);
-            entries.add(new PieEntry(40, key));
+            entries.add(new PieEntry(map.get(key), key));
         }
 
         if (entries.size() == 0) {
             entries.add(new PieEntry(100, "其他"));
         }
-        //设置数据
-        setData(entries);
+
+        Message msg = new Message();
+        msg.what = 1;
+        msg.obj = entries;
+        handler.sendMessage(msg);
     }
 
     //初始化View
