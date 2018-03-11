@@ -104,10 +104,10 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
 
         //模拟数据
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-        entries.add(new PieEntry(40, "优秀"));
-        entries.add(new PieEntry(20, "满分"));
-        entries.add(new PieEntry(30, "及格"));
-        entries.add(new PieEntry(10, "不及格"));
+        entries.add(new PieEntry(40, "图书馆"));
+        entries.add(new PieEntry(20, "教室"));
+        entries.add(new PieEntry(30, "实验室"));
+        entries.add(new PieEntry(10, "其他"));
 
         //设置数据
         setData(entries);
@@ -131,7 +131,7 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
     //设置中间文字
     private SpannableString generateCenterSpannableText() {
         //原文：MPAndroidChart\ndeveloped by Philipp Jahoda
-        SpannableString s = new SpannableString("刘某人程序员\n我仿佛听到有人说我帅");
+        SpannableString s = new SpannableString("所有学员情况\n分布百分比");
         //s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
         //s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
         // s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
@@ -143,7 +143,7 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
 
     //设置数据
     private void setData(ArrayList<PieEntry> entries) {
-        PieDataSet dataSet = new PieDataSet(entries, "三年级一班");
+        PieDataSet dataSet = new PieDataSet(entries, "所有学员");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
 
