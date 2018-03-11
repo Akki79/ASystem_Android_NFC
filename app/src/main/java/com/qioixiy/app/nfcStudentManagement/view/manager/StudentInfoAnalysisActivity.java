@@ -77,7 +77,7 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
         mPieChart = (PieChart) findViewById(R.id.mPieChart);
         mPieChart.setUsePercentValues(true);
         mPieChart.getDescription().setEnabled(false);
-        mPieChart.setExtraOffsets(5, 10, 5, 5);
+        mPieChart.setExtraOffsets(25, 10, 25, 5);
 
         mPieChart.setDragDecelerationFrictionCoef(0.95f);
         //设置中间文件
