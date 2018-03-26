@@ -47,7 +47,9 @@ public class Geocoder {
 
         Response response = null;
         try {
-            OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(3, TimeUnit.SECONDS)
+                    .readTimeout(3, TimeUnit.SECONDS).build();
             response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String rep = response.body().string();
