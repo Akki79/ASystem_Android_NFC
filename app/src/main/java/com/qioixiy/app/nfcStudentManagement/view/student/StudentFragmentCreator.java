@@ -50,7 +50,7 @@ import static com.qioixiy.utils.ByteArrayChange.ByteArrayToHexString;
 /**
  *
  */
-public class StudentFragmentCreator extends Fragment {
+public class StudentFragmentCreator extends Fragment implements StudentFragmentPagerAdapter.FragmentPageChanged {
 
     private FrameLayout fragmentContainer;
     private RecyclerView recyclerView;
@@ -62,7 +62,7 @@ public class StudentFragmentCreator extends Fragment {
     public static StudentFragmentCreator create(int index) {
         StudentFragmentCreator fragment = new StudentFragmentCreator();
         Bundle b = new Bundle();
-        b.putInt("index", index);
+            b.putInt("index", index);
         fragment.setArguments(b);
         return fragment;
     }
@@ -156,6 +156,71 @@ public class StudentFragmentCreator extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        List<String> info = new ArrayList<String>();
+        info.add("加载中");
+        StudentListInfoViewAdapter adapter = new StudentListInfoViewAdapter(info);
+        recyclerView.setAdapter(adapter);
+
+        studentInfoFetch();
+    }
+
+    /**
+     * Refresh
+     */
+    public void refresh() {
+        if (getArguments().getInt("index", 0) > 0 && recyclerView != null) {
+            recyclerView.smoothScrollToPosition(0);
+        }
+    }
+
+    /**
+     * Called when a fragment will be displayed
+     */
+    public void willBeDisplayed() {
+        // Do what you want here, for example animate the content
+        if (fragmentContainer != null) {
+            Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+            fragmentContainer.startAnimation(fadeIn);
+        }
+    }
+
+    /**
+     * Called when a fragment will be hidden
+     */
+    public void willBeHidden() {
+        if (fragmentContainer != null) {
+            Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+            fragmentContainer.startAnimation(fadeOut);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onChangedIndex(int position) {
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                studentInfoFetch();
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void studentInfoFetch() {
+
         NetDataModel.sendHttpRequest(new NetDataModel.OnHttpRequestReturn() {
             @Override
             public void onReturn(String response) {
@@ -244,50 +309,5 @@ public class StudentFragmentCreator extends Fragment {
                 handler.sendMessage(msg);
             }
         }, "dyn_info", "viewall");
-
-        List<String> info = new ArrayList<String>();
-        info.add("加载中");
-        StudentListInfoViewAdapter adapter = new StudentListInfoViewAdapter(info);
-        recyclerView.setAdapter(adapter);
-    }
-
-    /**
-     * Refresh
-     */
-    public void refresh() {
-        if (getArguments().getInt("index", 0) > 0 && recyclerView != null) {
-            recyclerView.smoothScrollToPosition(0);
-        }
-    }
-
-    /**
-     * Called when a fragment will be displayed
-     */
-    public void willBeDisplayed() {
-        // Do what you want here, for example animate the content
-        if (fragmentContainer != null) {
-            Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
-            fragmentContainer.startAnimation(fadeIn);
-        }
-    }
-
-    /**
-     * Called when a fragment will be hidden
-     */
-    public void willBeHidden() {
-        if (fragmentContainer != null) {
-            Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
-            fragmentContainer.startAnimation(fadeOut);
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 }

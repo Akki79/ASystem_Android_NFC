@@ -37,6 +37,7 @@ public class StudentFragmentPagerAdapter extends FragmentPagerAdapter {
 	public void setPrimaryItem(ViewGroup container, int position, Object object) {
 		if (getCurrentFragment() != object) {
 			currentFragment = ((StudentFragmentCreator) object);
+			currentFragment.onChangedIndex(position);
 		}
 		super.setPrimaryItem(container, position, object);
 	}
@@ -46,5 +47,9 @@ public class StudentFragmentPagerAdapter extends FragmentPagerAdapter {
 	 */
 	public StudentFragmentCreator getCurrentFragment() {
 		return currentFragment;
+	}
+
+	public interface FragmentPageChanged {
+		void onChangedIndex(int position);
 	}
 }
