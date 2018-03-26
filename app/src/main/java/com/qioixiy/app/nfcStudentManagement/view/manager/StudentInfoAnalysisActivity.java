@@ -31,6 +31,7 @@ import com.qioixiy.app.nfcStudentManagement.view.student.StudentListInfoViewAdap
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -95,30 +96,34 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
     private void getData() {
 
         Map<String, Integer> map = new HashMap<String, Integer>();
+        Map<String, Integer> nfcTagmap = new HashMap<String, Integer>();
 
         List<Student> studentList = DataModel.getStudentList();
         List<DynInfo> dynInfoList = DataModel.getDynInfoList();
         List<NfcTag> nfcTagList = DataModel.getNfcTagList();
 
-        for (Student student : studentList) {
-            String nfcTag = null;
-            for (DynInfo dynInfo : dynInfoList) {
-                if (dynInfo.getStudentId() == student.getId()) {
-                    nfcTag = dynInfo.getNfcTag();
-                }
+        for (DynInfo dynInfo : dynInfoList) {
+            String nfcTag = dynInfo.getNfcTag();
+
+            if (nfcTagmap.get(nfcTag) != null) {
+                nfcTagmap.put(nfcTag, nfcTagmap.get(nfcTag) + 1);
+            } else {
+                nfcTagmap.put(nfcTag, 1);
             }
+        }
+
+        Iterator<Map.Entry<String, Integer>> entries0 = nfcTagmap.entrySet().iterator();
+        while (entries0.hasNext()) {
+            Map.Entry<String, Integer> entry = entries0.next();
 
             String nfcTag_Type = "未知";
+            String nfcTag = entry.getKey();
             if (nfcTag != null) {
                 for (NfcTag nfcTag2 : nfcTagList) {
                     if (nfcTag2.getTag().equals(nfcTag)) {
                         nfcTag_Type = nfcTag2.getDefine();
 
-                        if (map.get(nfcTag_Type) != null) {
-                            map.put(nfcTag_Type, map.get(nfcTag_Type) + 1);
-                        } else {
-                            map.put(nfcTag_Type, 1);
-                        }
+                        map.put(nfcTag_Type, entry.getValue());
                     }
                 }
             }
