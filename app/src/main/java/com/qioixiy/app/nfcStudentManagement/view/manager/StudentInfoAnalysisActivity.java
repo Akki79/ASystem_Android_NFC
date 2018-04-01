@@ -243,7 +243,6 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
         mPieChart.setDragDecelerationFrictionCoef(0.95f);
         //设置中间文件
         mPieChart.setCenterText(generateCenterSpannableText());
-        mPieChart.setCenterText("加载中...");
 
         mPieChart.setDrawHoleEnabled(true);
         mPieChart.setHoleColor(Color.WHITE);
@@ -270,6 +269,7 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
 
         //设置数据
         setData(entries);
+        mPieChart.setCenterText("加载中...");
 
         mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
