@@ -93,57 +93,120 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
 
     }
 
+    private String getDefineByNfcTag(List<NfcTag> nfcTagList, String nfcTag) {
+        for (NfcTag nfc : nfcTagList) {
+            if (nfc.getTag().equals(nfcTag)) {
+                return nfc.getDefine();
+            }
+        }
+
+        throw new UnknownError("not find nfcTag:" + nfcTag);
+    }
+
     private void getData() {
 
         Map<String, Integer> map = new HashMap<String, Integer>();
-        Map<String, Integer> nfcTagmap = new HashMap<String, Integer>();
 
         List<Student> studentList = DataModel.getStudentList();
         List<DynInfo> dynInfoList = DataModel.getDynInfoList();
         List<NfcTag> nfcTagList = DataModel.getNfcTagList();
 
-        for (DynInfo dynInfo : dynInfoList) {
-            String nfcTag = dynInfo.getNfcTag();
+        class NfcTagStatus {
+            private String nfcTag;
+            private String type;
 
-            if (nfcTagmap.get(nfcTag) != null) {
-                nfcTagmap.put(nfcTag, nfcTagmap.get(nfcTag) + 1);
-            } else {
-                nfcTagmap.put(nfcTag, 1);
+            public NfcTagStatus(String nfcTag, String type) {
+                this.nfcTag = nfcTag;
+                this.type = type;
+            }
+
+            public String getNfcTag() {
+                return nfcTag;
+            }
+
+            public String getType() {
+                return type;
             }
         }
 
-        Iterator<Map.Entry<String, Integer>> entries0 = nfcTagmap.entrySet().iterator();
-        while (entries0.hasNext()) {
-            Map.Entry<String, Integer> entry = entries0.next();
-
-            String nfcTag_Type = "未知";
-            String nfcTag = entry.getKey();
-            if (nfcTag != null) {
-                for (NfcTag nfcTag2 : nfcTagList) {
-                    if (nfcTag2.getTag().equals(nfcTag)) {
-                        nfcTag_Type = nfcTag2.getDefine();
-
-                        map.put(nfcTag_Type, entry.getValue());
-                    }
+        // 1.分析每个学生的状态，把每个学生的NfcTag状态存入map中
+        Map<Integer, NfcTagStatus> studentNfcTagMap = new HashMap<Integer, NfcTagStatus>();
+        for (Student student : studentList) {
+            Integer studentId = student.getId();
+            NfcTagStatus nfcTagStatus = null;
+            for (DynInfo dynInfo : dynInfoList) {
+                if (studentId.equals(dynInfo.getStudentId())) {
+                    // 迭代取出最后一个
+                    nfcTagStatus = new NfcTagStatus(dynInfo.getNfcTag(), dynInfo.getType());
                 }
             }
+
+            // 找到插入studentNfcTagMap
+            if (nfcTagStatus != null) {
+                studentNfcTagMap.put(studentId, nfcTagStatus);
+            }
         }
 
-        Integer total = 0;
-        for (String key : map.keySet()) {
-            total += map.get(key);
+        // 2.统计NfcTagStatus个数
+        Map<NfcTagStatus, Integer> nfcTagStatusMap = new HashMap<NfcTagStatus, Integer>();
+        for (Map.Entry<Integer, NfcTagStatus> entry0 : studentNfcTagMap.entrySet()) {
+
+            NfcTagStatus nfcTagStatus = entry0.getValue();
+
+            boolean find = false;
+
+            for (Map.Entry<NfcTagStatus, Integer> entry1 : nfcTagStatusMap.entrySet()) {
+                NfcTagStatus nfcTagStatus1 = entry1.getKey();
+
+                if (nfcTagStatus.getType().equals(nfcTagStatus1.getType())
+                        && nfcTagStatus.getNfcTag().equals(nfcTagStatus1.getNfcTag())) {
+                    find = true;
+                    break;
+                }
+            }
+
+            if (find) {
+                nfcTagStatusMap.put(nfcTagStatus, nfcTagStatusMap.get(nfcTagStatus) + 1);
+            } else {
+                nfcTagStatusMap.put(nfcTagStatus, 1);
+            }
         }
 
-        //数据
+        // 计算总的个数
+        Integer totalStudent = studentList.size();
+        Integer totalKnown = 0;
+        for (NfcTagStatus key : nfcTagStatusMap.keySet()) {
+            totalKnown += nfcTagStatusMap.get(key);
+        }
+
+        // 将统计到的数据加入map中
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
-        for (String key : map.keySet()) {
-            entries.add(new PieEntry(map.get(key), key));
+        for (NfcTagStatus key : nfcTagStatusMap.keySet()) {
+            try {
+                String define = getDefineByNfcTag(nfcTagList, key.getNfcTag());
+                String nfcTag_Type = define;
+                if (key.getType().equals("check_in")) {
+                    nfcTag_Type += "签入";
+                } else if (key.getType().equals("check_out")) {
+                    nfcTag_Type += "签出";
+                }
+
+                entries.add(new PieEntry(nfcTagStatusMap.get(key), nfcTag_Type));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
 
+        // 未知情况处理
         if (entries.size() == 0) {
             entries.add(new PieEntry(100, "其他"));
+        } else {
+            if (totalStudent != totalKnown) {
+                entries.add(new PieEntry(totalStudent - totalKnown, "未知"));
+            }
         }
 
+        // 更新Pie
         Message msg = new Message();
         msg.what = 1;
         msg.obj = entries;
@@ -180,6 +243,7 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
         mPieChart.setDragDecelerationFrictionCoef(0.95f);
         //设置中间文件
         mPieChart.setCenterText(generateCenterSpannableText());
+        mPieChart.setCenterText("加载中...");
 
         mPieChart.setDrawHoleEnabled(true);
         mPieChart.setHoleColor(Color.WHITE);
@@ -238,6 +302,9 @@ public class StudentInfoAnalysisActivity extends AppCompatActivity implements On
 
     //设置数据
     private void setData(ArrayList<PieEntry> entries) {
+
+        mPieChart.setCenterText(generateCenterSpannableText());
+
         PieDataSet dataSet = new PieDataSet(entries, "所有学员");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
