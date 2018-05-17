@@ -66,6 +66,12 @@
             android:theme="@style/AppTheme.Launcher">
         </activity>
 
+        <activity
+            android:name="com.qioixiy.app.nfcStudentManagement.view.manager.StoreMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Launcher">
+        </activity>
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
