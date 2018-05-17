@@ -50,9 +50,8 @@ public class StoreMapActivity extends Activity {
         //requestWindowFeature(Window.FEATURE_NO_TITLE);120.123012,30.296587
         //可以传值
         //lableName = getIntent().getExtras().getString("lableName");
-        //latx  = getIntent().getExtras().getFloat("latx");
-        //laty  = getIntent().getExtras().getFloat("laty");
-
+        latx  = getIntent().getExtras().getFloat("latx");
+        laty  = getIntent().getExtras().getFloat("laty");
 
         setView();
         initView();

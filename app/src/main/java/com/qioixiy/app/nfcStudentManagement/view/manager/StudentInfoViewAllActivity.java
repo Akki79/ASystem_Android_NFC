@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View.OnClickListener;
+import android.content.Intent;
+import android.widget.Button;
 
 import com.qioixiy.R;
 import com.qioixiy.app.nfcStudentManagement.model.DataModel;
@@ -132,6 +135,20 @@ public class StudentInfoViewAllActivity extends AppCompatActivity {
         TextView email = customView.findViewById(R.id.email);
         TextView location = customView.findViewById(R.id.location);
         TextView checkState = customView.findViewById(R.id.checkState);
+
+        Button btn = customView.findViewById(R.id.button_map_view);
+        btn.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StudentInfoViewAllActivity.this, StoreMapActivity.class);
+
+                String geo = dynInfoList.get(position).getGeo();
+                String[] lan = geo.split(",");
+                intent.putExtra("latx", Float.parseFloat(lan[0]));
+                intent.putExtra("laty", Float.parseFloat(lan[1]));
+                startActivity(intent);
+            }
+        });
 
         Student student = studentList.get(position);
 
