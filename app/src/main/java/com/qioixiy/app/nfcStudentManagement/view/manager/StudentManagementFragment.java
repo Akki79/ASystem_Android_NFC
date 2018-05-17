@@ -99,6 +99,7 @@ public class StudentManagementFragment extends Fragment {
         itemsData.add("添加学员");
         itemsData.add("管理NFC标签");
         itemsData.add("添加NFC标签");
+        itemsData.add("查看地图");
 
         StudentManagementAdapter adapter = new StudentManagementAdapter(itemsData);
 
@@ -121,6 +122,10 @@ public class StudentManagementFragment extends Fragment {
                         break;
                     case 3:
                         intent = new Intent(getContext(), AddNFCActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent = new Intent(getContext(), MapActivity.class);
                         startActivity(intent);
                         break;
                     default:
